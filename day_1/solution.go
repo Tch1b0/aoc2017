@@ -20,9 +20,13 @@ func getInput() string {
 }
 
 func part1() {
+    in := getInput()
 	prev := ' '
 	sum := 0
-	for _, digit := range getInput() {
+    if in[0] == in[len(in) - 1] {
+        sum += int(in[0]) - int('0')
+    }
+	for _, digit := range in {
 		if prev != ' ' {
 			if prev == digit {
 				sum += int(digit) - int('0')
