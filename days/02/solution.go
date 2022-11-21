@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/Tch1b0/polaris/input"
+	"github.com/Tch1b0/polaris/math"
 )
 
 func getInput() [][]int {
@@ -30,49 +31,35 @@ func getInput() [][]int {
 	})
 }
 
-func min(arr []int) int {
-	if len(arr) == 0 {
-		panic("Invalid array length")
-	}
-
-	var m int = arr[0]
-
-	for _, val := range arr {
-		if val < m {
-			m = val
-		}
-	}
-
-	return m
-}
-
-func max(arr []int) int {
-	if len(arr) == 0 {
-		panic("Invalid array length")
-	}
-
-	var m int = arr[0]
-
-	for _, val := range arr {
-		if val > m {
-			m = val
-		}
-	}
-
-	return m
-}
-
 func part1() int {
 	sum := 0
 	for _, row := range getInput() {
-		sum += max(row) - min(row)
+		sum += math.Max(row) - math.Min(row)
 	}
 
 	return sum
 }
 
 func part2() int {
-	return -1
+	sum := 0
+	for _, row := range getInput() {
+		var s *int = nil
+		for _, col := range row {
+			for _, divisor := range row {
+				if col != divisor && col%divisor == 0 {
+					x := col / divisor
+					s = &x
+					break
+				}
+			}
+			if s != nil {
+				break
+			}
+		}
+		sum += *s
+	}
+
+	return sum
 }
 
 func main() {
